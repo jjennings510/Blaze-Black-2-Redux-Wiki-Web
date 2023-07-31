@@ -1,38 +1,561 @@
-.App {
+.image-container img {
+  max-width: 100%;
+  max-height: 25vh;
+  object-fit: contain;
+}
+a {
+  text-decoration: none;
+}
+.main-color {
+  background-color: #0085ca;
+}
+
+.btn.main-color:hover {
+  background-color: #006aa2;
+}
+
+/* Sprites */
+.pokemon-sprite {
+  max-height: 96px;
+  max-width: 96px;
+  /* background-color: black; */
+}
+
+.pokemon-row-sprite {
+  height: 72px;
+  width: 72x;
+}
+
+.pokemon-artwork {
+  height: 350px;
+  width: 350px;
+}
+
+/* Typing */
+.type-chart-cell {
+  height: 45px;
+  width: 45px;
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  border-radius: 25%;
+  margin-bottom: 3px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  border-width: 3px;
+  border-style: solid;
+  color: #e6e6e6;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-shadow: 3px 2px 3px black;
 }
 
-.App-link {
-  color: #61dafb;
+.type-normal {
+  background-color: #a8a77a;
+  border-color: #323225;
+  background-image: linear-gradient(
+    to right bottom,
+    #a8a77a,
+    #9e9d73,
+    #95946c,
+    #8b8a65,
+    #82815e,
+    #7b7a59,
+    #747454,
+    #6d6d4f,
+    #67674a,
+    #606046,
+    #5a5a41,
+    #54543d
+  );
+}
+.type-fire {
+  background-color: #ee8130;
+  border-color: #47270e;
+  background-image: linear-gradient(
+    to right bottom,
+    #ee8130,
+    #e07a2d,
+    #d3722a,
+    #c56b28,
+    #b86425,
+    #ae5f23,
+    #a55921,
+    #9b541f,
+    #924f1d,
+    #894a1b,
+    #80461a,
+    #774118
+  );
+}
+.type-water {
+  background-color: #6390f0;
+  border-color: #1e2b48;
+  background-image: linear-gradient(
+    to right bottom,
+    #6390f0,
+    #5d88e2,
+    #5780d5,
+    #5278c7,
+    #4c70ba,
+    #486ab0,
+    #4464a6,
+    #405e9c,
+    #3c5893,
+    #39538a,
+    #354d81,
+    #324878
+  );
+}
+.type-electric {
+  background-color: #e5c531;
+  border-color: #4a3e0d;
+  background-image: linear-gradient(
+    to right bottom,
+    #e5c531,
+    #e1c130,
+    #dcbd2f,
+    #d8ba2e,
+    #d4b62d,
+    #ceb12c,
+    #c8ac2a,
+    #c2a729,
+    #b9a027,
+    #b19825,
+    #a89124,
+    #a08a22
+  );
+}
+.type-grass {
+  background-color: #7ac74c;
+  border-color: #253c17;
+  background-image: linear-gradient(
+    to right bottom,
+    #7ac74c,
+    #73bc48,
+    #6cb043,
+    #65a53f,
+    #5e9a3b,
+    #599238,
+    #548934,
+    #4f8131,
+    #4a7a2e,
+    #46722b,
+    #416b29,
+    #3d6426
+  );
+}
+.type-ice {
+  background-color: #96d9d6;
+  border-color: #2d4140;
+  background-image: linear-gradient(
+    to right bottom,
+    #96d9d6,
+    #8dcdca,
+    #85c0be,
+    #7cb4b2,
+    #74a8a6,
+    #6e9f9d,
+    #679694,
+    #618d8b,
+    #5b8583,
+    #567d7b,
+    #507573,
+    #4b6d6b
+  );
+}
+.type-fighting {
+  background-color: #c22e28;
+  border-color: #3a0e0c;
+  background-image: linear-gradient(
+    to right bottom,
+    #c22e28,
+    #b72b26,
+    #ac2824,
+    #a12621,
+    #96231f,
+    #8e211d,
+    #86201c,
+    #7e1e1a,
+    #771c19,
+    #6f1a17,
+    #681916,
+    #611714
+  );
+}
+.type-poison {
+  background-color: #a33ea1;
+  border-color: #311330;
+  background-image: linear-gradient(
+    to right bottom,
+    #a33ea1,
+    #9a3a98,
+    #90378f,
+    #873386,
+    #7e307d,
+    #772d76,
+    #712b70,
+    #6a2869,
+    #642663,
+    #5e235d,
+    #582157,
+    #521f51
+  );
+}
+.type-ground {
+  background-color: #e2bf65;
+  border-color: #44391e;
+  background-image: linear-gradient(
+    to right bottom,
+    #e2bf65,
+    #d5b45f,
+    #c8a959,
+    #bc9f54,
+    #af944e,
+    #a58c4a,
+    #9c8446,
+    #927c42,
+    #8a753e,
+    #816e3a,
+    #796737,
+    #716033
+  );
+}
+.type-flying {
+  background-color: #a98ff3;
+  border-color: #332b49;
+  background-image: linear-gradient(
+    to right bottom,
+    #a98ff3,
+    #9f87e5,
+    #957ed7,
+    #8c76ca,
+    #826ebc,
+    #7b68b2,
+    #7563a8,
+    #6e5d9e,
+    #685895,
+    #61528c,
+    #5b4d83,
+    #55487a
+  );
+}
+.type-psychic {
+  background-color: #f95587;
+  border-color: #4b1928;
+  background-image: linear-gradient(
+    to right bottom,
+    #f95587,
+    #ea507f,
+    #dc4b78,
+    #ce4670,
+    #c04169,
+    #b63e63,
+    #ab3a5e,
+    #a13758,
+    #983453,
+    #8f314e,
+    #862e49,
+    #7d2b44
+  );
+}
+.type-bug {
+  background-color: #a6b91a;
+  border-color: #323708;
+  background-image: linear-gradient(
+    to right bottom,
+    #a6b91a,
+    #9cae19,
+    #93a417,
+    #899916,
+    #808f14,
+    #798813,
+    #738012,
+    #6c7911,
+    #667210,
+    #5f6b0f,
+    #59640e,
+    #535d0d
+  );
+}
+.type-rock {
+  background-color: #b6a136;
+  border-color: #373010;
+  background-image: linear-gradient(
+    to right bottom,
+    #b6a136,
+    #ab9833,
+    #a18f30,
+    #96862d,
+    #8c7d2a,
+    #857628,
+    #7d7025,
+    #766923,
+    #6f6321,
+    #685d1f,
+    #62571d,
+    #5b511b
+  );
+}
+.type-ghost {
+  background-color: #735797;
+  border-color: #221a2d;
+  background-image: linear-gradient(
+    to right bottom,
+    #735797,
+    #6c528e,
+    #664d86,
+    #5f487d,
+    #594375,
+    #54406f,
+    #503c68,
+    #4b3962,
+    #47365c,
+    #423257,
+    #3e2f51,
+    #3a2c4c
+  );
+}
+.type-dragon {
+  background-color: #6f35fc;
+  border-color: #21104c;
+  background-image: linear-gradient(
+    to right bottom,
+    #6f35fc,
+    #6932ee,
+    #622fdf,
+    #5c2cd1,
+    #5629c3,
+    #5127b8,
+    #4d25ae,
+    #4823a3,
+    #44219a,
+    #401f90,
+    #3c1d87,
+    #381b7e
+  );
+}
+.type-dark {
+  background-color: #705746;
+  border-color: #221a15;
+  background-image: linear-gradient(
+    to right bottom,
+    #705746,
+    #695242,
+    #634d3e,
+    #5c483a,
+    #564336,
+    #514033,
+    #4d3c30,
+    #48392d,
+    #44362a,
+    #403228,
+    #3c2f25,
+    #382c23
+  );
+}
+.type-steel {
+  background-color: #b7b7ce;
+  border-color: #37373e;
+  background-image: linear-gradient(
+    to right bottom,
+    #b7b7ce,
+    #acacc2,
+    #a2a2b6,
+    #9797ab,
+    #8d8d9f,
+    #868697,
+    #7e7e8e,
+    #777786,
+    #70707e,
+    #696976,
+    #63636f,
+    #5c5c67
+  );
+}
+.type-fairy {
+  background-color: #d685ad;
+  border-color: #402834;
+  background-image: linear-gradient(
+    to right bottom,
+    #d685ad,
+    #ca7da3,
+    #be7699,
+    #b26e90,
+    #a66786,
+    #9d617f,
+    #945c77,
+    #8b5670,
+    #83516a,
+    #7b4c63,
+    #73485d,
+    #6b4357
+  );
+}
+.type-immunity {
+  background-color: #33c6b7;
+  border-color: #20200e;
+  border-width: 3px;
+  background-image: linear-gradient(
+    to right bottom,
+    #00b8a5,
+    #00ad9b,
+    #00a392,
+    #009888,
+    #008e7f,
+    #008778,
+    #007f72,
+    #00786b,
+    #007165,
+    #006a5f,
+    #006359,
+    #005c53
+  );
+}
+.type-4x-weakness {
+  background-color: #ee1615;
+  border-color: #5f0908;
+  border-width: 3px;
+  background-image: linear-gradient(
+    to right bottom,
+    #ee1615,
+    #e01514,
+    #d31313,
+    #c51212,
+    #b81111,
+    #ae1010,
+    #a50f0f,
+    #9b0e0e,
+    #920d0e,
+    #890c0d,
+    #800c0c,
+    #770b0b
+  );
+}
+.type-weakness {
+  background-color: #b03f3f;
+  border-color: #461919;
+  border-width: 3px;
+  background-image: linear-gradient(
+    to right bottom,
+    #b03f3f,
+    #a63b3b,
+    #9c3838,
+    #923434,
+    #883131,
+    #812e2e,
+    #792c2c,
+    #722929,
+    #6b2727,
+    #652424,
+    #5e2222,
+    #582020
+  );
+}
+.type-neutral {
+  background-color: transparent;
+  border-color: rgb(52, 58, 64);
+  border-width: 1px;
+}
+.type-resistance {
+  background-color: #338114;
+  border-color: #143408;
+  border-width: 3px;
+  background-image: linear-gradient(
+    to right bottom,
+    #338114,
+    #307a13,
+    #2d7212,
+    #2b6b11,
+    #286410,
+    #265f0f,
+    #23590e,
+    #21540d,
+    #1f4f0c,
+    #1e4a0c,
+    #1c460b,
+    #1a410a
+  );
+}
+.type-4x-resistance {
+  background-color: #56b233;
+  border-color: #224714;
+  border-width: 3px;
+  background-image: linear-gradient(
+    to right bottom,
+    #56b233,
+    #56aa36,
+    #56a239,
+    #569a3c,
+    #55923e,
+    #538b3d,
+    #50843c,
+    #4e7d3b,
+    #497638,
+    #456f34,
+    #406831,
+    #3c612e
+  );
+}
+.type-card {
+  width: 80px;
+  height: 2em;
+  border-width: 3px;
+  color: rgb(240, 232, 232);
+  text-transform: uppercase;
+  text-shadow: 3px 1px 2px black;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Tooltips */
+.tooltip > .tooltip-inner {
+  background-color: #0085ca;
+  color: whitesmoke;
+}
+.tooltip > .tooltip-arrow::before {
+  border-top-color: #0085ca;
+}
+.tooltip-left > .tooltip-arrow::before {
+  border-left-color: #0085ca;
+  border-top-color: transparent;
+}
+.tooltip-right > .tooltip-arrow::before {
+  border-right-color: #0085ca;
+  border-top-color: transparent;
+}
+
+/* Progress Bars */
+.bad-stat > .progress-bar {
+  background-color: #c63939;
+}
+.okay-stat > .progress-bar {
+  background-color: #ae7200;
+}
+.decent-stat > .progress-bar {
+  background-color: #5ba748;
+}
+.good-stat > .progress-bar {
+  background-color: #00b8a5;
+}
+.amazing-stat > .progress-bar {
+  background-color: #3eb5d6;
+}
+
+a {
+  color: #0085ca;
+}
+
+.secondary-color {
+  color: #eac321
+}
+
+.my-masonry-grid {
+  display: -webkit-box; /* Not needed if autoprefixing */
+  display: -ms-flexbox; /* Not needed if autoprefixing */
+  display: flex;
+  margin-left: -30px; /* gutter size offset */
+  width: auto;
+}
+
+.my-masonry-grid_column {
+  padding-left: 30px; /* gutter size */
+  background-clip: padding-box;
 }
