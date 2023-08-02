@@ -1,11 +1,14 @@
-export const RenderCategory: React.FC<{category: string}> = (props) => {
+export const RenderCategory: React.FC<{category: string, size?: string}> = (props) => {
+  const width = props.size === "small" ? "56px" : "64px";
+  const height = props.size === "small" ? "28px" : "32px";
+
   if (props.category === "physical") {
     return (
       <>
         <img
           src={require(`../Images/Moves/physical.png`)}
           alt="Physical"
-          style={{ width: "69px", height: "35px" }}
+          style={{ width: width, height: height}}
           className="mx-1"
         />
       </>
@@ -16,7 +19,7 @@ export const RenderCategory: React.FC<{category: string}> = (props) => {
         <img
           src={require(`../Images/Moves/special.png`)}
           alt="Special"
-          style={{ width: "69px", height: "35px" }}
+          style={{ width: width, height: height}}
           className="mx-1"
         />
       </>
@@ -27,7 +30,7 @@ export const RenderCategory: React.FC<{category: string}> = (props) => {
         <img
           src={require(`../Images/Moves/status.png`)}
           alt="Status"
-          style={{ width: "69px", height: "35px" }}
+          style={{ width: width, height: height}}
           className="mx-1"
         />
       </>

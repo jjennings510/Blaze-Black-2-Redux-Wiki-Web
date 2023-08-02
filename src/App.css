@@ -142,8 +142,17 @@ a:hover {
 
 .type-card {
   width: 80px;
-  height: 2em;
+  height: 32px;
   border-width: 3px;
+  color: rgb(240, 232, 232);
+  text-transform: uppercase;
+  text-shadow: 3px 2px 4px black;
+}
+.type-card-small {
+  width: 70px;
+  height: 28px;
+  border-width: 3px;
+  font-size: small;
   color: rgb(240, 232, 232);
   text-transform: uppercase;
   text-shadow: 3px 2px 4px black;

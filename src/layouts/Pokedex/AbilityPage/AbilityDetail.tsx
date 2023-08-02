@@ -46,25 +46,71 @@ export const AbilityDetail = () => {
   }
 
   return (
-    <div className="container">
-      <div className="row mt-4">
-        <div className="col-4 d-flex align-items-center">
-          <Link to={"/abilities"} className="text-capitalize">
-            <FontAwesomeIcon icon={faArrowLeft} /> Back to abilities
-          </Link>
-        </div>
-        <div className="col-8">
-          <h1 className="display-3 text-capitalize fw-semibold">
-            {ability?.name}
-          </h1>
+    <div>
+      {/* Desktop view */}
+      <div className="d-none d-lg-block">
+        <div className="container">
+          <div className="row mt-4">
+            <div className="col-4 d-flex align-items-center">
+              <Link to={"/abilities"} className="text-capitalize">
+                <FontAwesomeIcon icon={faArrowLeft} /> Back to abilities
+              </Link>
+            </div>
+            <div className="col-8">
+              <h1 className="display-3 text-capitalize fw-semibold mb-4">
+                {ability?.name}
+              </h1>
+            </div>
+            <hr />
+          </div>
+          <div className="row mt-4">
+            <div className="col-6">
+              <div className="card">
+                <div className="card-header">
+                  <p className="fst-italic mb-0">
+                    <span className="text-warning">{ability?.name}</span> is an
+                    ability added to Pokemon in Generation{" "}
+                    {ability?.generationAdded}.
+                  </p>
+                </div>
+                <div className="card-body">
+                  <h2 className="card-title">Effect</h2>
+                  {ability?.effect
+                    .replaceAll("\n", "  ")
+                    .split("  ")
+                    .map((x, index) => (
+                      <p key={index}>{x}</p>
+                    ))}
+                  <h2>Flavor Text</h2>
+                  <p>{ability?.flavorText}</p>
+                </div>
+              </div>
+            </div>
+            <div className="col-6">
+              <h2>Obtainable by</h2>
+              <PokemonAbilityTable abilityId={abilityId} />
+            </div>
+          </div>
         </div>
       </div>
-      <div className="row mt-4">
-        <div className="col-6">
+      {/* Mobile view */}
+      <div className="d-lg-none">
+        <div className="container">
+          <div className="col-6 d-flex align-items-center mt-4">
+            <Link to={"/abilities"} className="text-capitalize">
+              <FontAwesomeIcon icon={faArrowLeft} /> Back to abilities
+            </Link>
+          </div>
+
+          <h1 className="display-3 text-capitalize text-center fw-semibold my-4">
+            {ability?.name}
+          </h1>
+          <hr />
           <div className="card">
             <div className="card-header">
               <p className="fst-italic mb-0">
-                <span className="text-warning">{ability?.name}</span> is an ability added to Pokemon in Generation{" "}
+                <span className="text-warning">{ability?.name}</span> is an
+                ability added to Pokemon in Generation{" "}
                 {ability?.generationAdded}.
               </p>
             </div>
@@ -80,10 +126,8 @@ export const AbilityDetail = () => {
               <p>{ability?.flavorText}</p>
             </div>
           </div>
-        </div>
-        <div className="col-6">
-          <h2>Obtainable by</h2>
-          <PokemonAbilityTable abilityId={abilityId} />
+          <h2 className="text-center mt-4">Obtainable by</h2>
+          <PokemonAbilityTable abilityId={abilityId} mobile/>
         </div>
       </div>
     </div>

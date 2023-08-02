@@ -203,7 +203,64 @@ export const MoveDexPage = () => {
       {/* Mobile view */}
       <div className="d-lg-none">
         <div className="container">
-          <h1 className="text-center">Move Search</h1>
+          <h1 className="mt-4 text-center secondary-color-">Move Search</h1>
+          <div className="d-flex mt-3">
+            <input
+              type="search"
+              className="form-control"
+              placeholder="Search pokemon, ability, or type"
+              aria-label="Search"
+              onChange={(e) => setSearch(e.target.value)}
+              onKeyDown={handleKeyDown}
+              value={search}
+            />
+            {searchUrl !== "" && (
+              <button
+                className="btn btn-danger text-white ms-2"
+                onClick={() => handleReset()}
+              >
+                Reset
+              </button>
+            )}
+          </div>
+          <table className="table align-middle">
+            <thead>
+              <tr>
+                <td>Name</td>
+                <td>Type</td>
+                <td>Cat.</td>
+              </tr>
+            </thead>
+            <tbody>
+              {moves.map((move) => (
+                <tr key={move.id}>
+                  <td>
+                    <Link to={`/moves/${move.id}`}>{move.name}</Link>
+                  </td>
+                  <td>
+                    <TypeCard type={move.type} size="small" />
+                  </td>
+                  <td>{<RenderCategory category={move.category} size="small" />}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {moves.length === 0 && (
+              <>
+                <p className="text-center">
+                  Uh oh! It looks like we couldn't find what you were looking
+                  for. Try searching again!
+                </p>
+              </>
+            )}
+          {totalPages > 1 && (
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              numberSiblings={3}
+              paginate={paginate}
+            />
+          )}
         </div>
       </div>
     </div>

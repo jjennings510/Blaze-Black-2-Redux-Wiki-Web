@@ -24,7 +24,7 @@ export const PokemonDetail = () => {
   const [httpError, setHttpError] = useState(null);
 
   // Sprites state
-  const [sprites, setSprites] = useState<SpriteModel[]>([]);
+  const [sprite, setSprite] = useState<SpriteModel>();
   const [areSpritesLoading, setAreSpritesLoading] = useState(true);
 
   // Pokemon Varieties
@@ -34,6 +34,7 @@ export const PokemonDetail = () => {
 
   // Base Stats state
   const [baseStats, setBaseStats] = useState<BaseStatsModel>();
+  const [areBaseStatsLoading, setAreBaseStatsLoading] = useState(true);
 
   // Ability + Typing
   const [abilities, setAbilities] = useState<AbilityModel[]>([]);
@@ -43,6 +44,7 @@ export const PokemonDetail = () => {
     +window.location.pathname.split("/")[2]
   );
 
+  // Get pokemon sepcies
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API}/pokemonSpecies/${speciesId}`)
       .then((response) => response.json())
@@ -64,7 +66,7 @@ export const PokemonDetail = () => {
       });
   }, [speciesId]);
 
-  // Use effect for getting varieties of pokemon
+  // Get varieties of species
   useEffect(() => {
     fetch(
       `${process.env.REACT_APP_API}/pokemon/search/findBySpeciesId?speciesId=${speciesId}`
@@ -91,6 +93,7 @@ export const PokemonDetail = () => {
       });
   }, [speciesId]);
 
+  // Get pokemon details
   useEffect(() => {
     if (!isPokemonLoading) {
       fetch(
@@ -100,28 +103,66 @@ export const PokemonDetail = () => {
         .then((data) => {
           const loadedDetails: PokemonDetailModel = {
             pokemon: data.pokemon,
-            sprites: data.pokemon.sprites,
             types: data.types,
-            abilities: data.abilities,
-            baseStats: data.baseStats,
           };
-
-          const loadedAbilities: AbilityModel[] = [];
-          for (let ability of data.abilities) {
-            loadedAbilities.push({
-              id: ability.id,
-              name: ability.name,
-              shortEffect: ability.shortEffect,
-              hiddenAbility: ability.hiddenAbility,
-            });
-          }
           setPreviousPokemonName(data.previousPokemonName);
           setNextPokemonName(data.nextPokemonName);
-          setAbilities(loadedAbilities);
-          setSprites(loadedDetails.sprites);
-          setBaseStats(loadedDetails.baseStats);
           setTypes(loadedDetails.types);
           setAreSpritesLoading(false);
+        })
+        .catch((error: any) => {
+          setAreSpritesLoading(false);
+          setHttpError(error.message);
+        });
+    }
+  }, [currentPokemon]);
+
+  // Get base stats
+  useEffect(() => {
+    if (!isPokemonLoading) {
+      fetch(`${process.env.REACT_APP_API}/baseStats/${currentPokemon?.id}`)
+        .then((response) => response.json())
+        .then((data) => {
+          const loadedDetails: BaseStatsModel = data;
+          setBaseStats(loadedDetails);
+        })
+        .catch((error: any) => {
+          setAreBaseStatsLoading(false);
+          setHttpError(error.message);
+        });
+    }
+  }, [currentPokemon]);
+
+  // Get abilities
+  useEffect(() => {
+    if (!isPokemonLoading) {
+      fetch(
+        `${process.env.REACT_APP_API}/abilities/get/for/pokemonId?pokemonId=${currentPokemon?.id}`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          const loadedDetails: AbilityModel[] = data;
+          setAbilities(loadedDetails);
+          console.log(abilities);
+        })
+        .catch((error: any) => {
+          setAreSpritesLoading(false);
+          setHttpError(error.message);
+        });
+    }
+  }, [currentPokemon]);
+
+  // Get artwork
+  useEffect(() => {
+    if (!isPokemonLoading) {
+      fetch(
+        `${process.env.REACT_APP_API}/sprites/search/findFirstByPokemonIdAndSpriteType?pokemonId=${currentPokemon?.id}&spriteType=artwork`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          const loadedSprite: SpriteModel = data;
+          setSprite(loadedSprite);
+          console.log(sprite);
         })
         .catch((error: any) => {
           setAreSpritesLoading(false);
@@ -137,11 +178,6 @@ export const PokemonDetail = () => {
   if (httpError) {
     return <div>{httpError}</div>;
   }
-
-  const getArtwork = (sprites: SpriteModel[]) => {
-    let sprite = sprites.find((i) => i.spriteType === "artwork");
-    return "data:image/png;base64," + sprite?.image;
-  };
 
   const handleTabChange = (index: number) => {
     setCurrentPokemon(pokemon[index]);
@@ -279,9 +315,9 @@ export const PokemonDetail = () => {
           </div>
           <div className="col-8">
             <div className="text-center">
-              {sprites[0]?.image ? (
+              {sprite?.image ? (
                 <img
-                  src={getArtwork(sprites)}
+                  src={`data:image/png;base64,${sprite.image}`}
                   alt="Pokemon sprite"
                   className="pokemon-artwork"
                 />
@@ -331,13 +367,67 @@ export const PokemonDetail = () => {
       </div>
       {/* Mobile */}
       <div className="d-lg-none">
-        <div className="card mt-3">
-          <div className="text-center">
-            {sprites[0]?.image ? (
+        <div className="container">
+          <div className="row mt-4">
+            <div className="col-6 d-flex justify-content-start">
+              {speciesId && speciesId > 1 && (
+                <Link
+                  to={`/pokemon/${speciesId - 1}`}
+                  onClick={() => setspeciesId(speciesId - 1)}
+                  className="text-capitalize"
+                >
+                  <FontAwesomeIcon icon={faArrowLeft} />{" "}
+                  {pokemonSpecies &&
+                    (pokemonSpecies?.number - 1)
+                      ?.toString()
+                      .padStart(3, "0")}{" "}
+                  - {previousPokemonName}
+                </Link>
+              )}
+            </div>
+            <div className="col-6 d-flex justify-content-end">
+              {pokemonSpecies && pokemonSpecies?.number < 649 && (
+                <Link
+                  to={`/pokemon/${speciesId + 1}`}
+                  onClick={() => setspeciesId(speciesId + 1)}
+                  className="text-capitalize"
+                >
+                  {pokemonSpecies &&
+                    (pokemonSpecies?.number + 1)
+                      ?.toString()
+                      .padStart(3, "0")}{" "}
+                  - {nextPokemonName} <FontAwesomeIcon icon={faArrowRight} />
+                </Link>
+              )}
+            </div>
+          </div>
+          <div>
+            <ul className="nav nav-tabs fw-semibold mt-4">
+              {pokemon.map((p, index) => (
+                <li className="nav-item" key={p.id}>
+                  <a
+                    href="#"
+                    aria-current="page"
+                    className={
+                      "nav-link text-capitalize " +
+                      (p === currentPokemon ? "active" : "")
+                    }
+                    id={`${p.formName}`}
+                    data-bs-toggle="tab"
+                    onClick={() => handleTabChange(index)}
+                  >
+                    {p.formName}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="mt-4">
+            {sprite?.image ? (
               <img
-                src={getArtwork(sprites)}
+                src={`data:image/png;base64,${sprite.image}`}
                 alt="Pokemon sprite"
-                className="card-img-top animated-sprite"
+                className="card-img-top"
               />
             ) : (
               <img
@@ -347,12 +437,106 @@ export const PokemonDetail = () => {
               />
             )}
           </div>
-          <hr />
-          <div className="card-body">
-            <h5 className="card-title text-center text-capitalize">
-              {pokemonSpecies?.name}
-            </h5>
-            <hr />
+          <div className="card mt-3">
+            <div className="card-header">
+              <h2 className="card-title text-center text-capitalize">
+                {pokemonSpecies?.name}
+              </h2>
+            </div>
+            <div className="card-body">
+              <table className="table fw-semibold align-middle">
+                <tbody>
+                  <tr>
+                    <td className="col-4">Number</td>
+                    <td>
+                      {(pokemonSpecies && pokemonSpecies?.number)
+                        ?.toString()
+                        .padStart(3, "0")}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="col-4">Type</td>
+                    <td>
+                      <div className="d-flex">
+                        {types.map((type, index) => (
+                          <TypeCard type={type} key={index} />
+                        ))}
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="col-4">Abililties</td>
+                    <td>
+                      <ol className="ps-3">
+                        {abilities.map((ability, index) => (
+                          <li key={index}>
+                            <OverlayTrigger
+                              delay={{ show: 350, hide: 400 }}
+                              overlay={
+                                <Tooltip className="tooltip-left">
+                                  {ability.shortEffect}
+                                </Tooltip>
+                              }
+                              placement="left"
+                            >
+                              <Link to={`/abilities/${ability.id}`}>
+                                {ability.name}
+                              </Link>
+                            </OverlayTrigger>
+                            {ability.hiddenAbility && (
+                              <span className="fst-italic fw-normal text-body-secondary">
+                                {" "}
+                                (Hidden ability)
+                              </span>
+                            )}
+                          </li>
+                        ))}
+                      </ol>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="col-4">Genus</td>
+                    <td>{pokemonSpecies?.genus}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <h2 className="text-center my-3">Base Stats</h2>
+          <hr className="mb-0" />
+          {baseStats ? (
+            <BaseStatsTable baseStats={baseStats} />
+          ) : (
+            <>
+              <p>Looks like we couldnt find any stats!</p>
+            </>
+          )}
+
+          <div className="my-3">
+            <h2 className="text-center mb-3">Defensive Type Chart</h2>
+            <TypeChart types={types} abilities={abilities} />
+          </div>
+          <div className="my-3">
+            <h2 className="text-center mb-3">Level Up Moveset</h2>
+            <hr className="mb-0" />
+            {currentPokemon?.id && (
+              <MoveTable
+                pokemonId={currentPokemon?.id}
+                method="level-up"
+                mobile
+              />
+            )}
+          </div>
+          <div className="my-3">
+            <h2 className="text-center mb-3">TM and Move Tutor Moveset</h2>
+            <hr className="mb-0" />
+            {currentPokemon?.id && (
+              <MoveTable
+                pokemonId={currentPokemon?.id}
+                method="machine"
+                mobile
+              />
+            )}
           </div>
         </div>
       </div>

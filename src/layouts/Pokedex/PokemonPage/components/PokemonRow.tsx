@@ -12,12 +12,14 @@ export const PokemonRow: React.FC<{
 }> = (props, key) => {
   const formatFormName = (name?: string) => {
     if (name === props.pokemon.name) {
-      return
+      return;
     } else {
-      const formattedName = name?.substring(name.indexOf("-") + 1).replaceAll("-", " ")
-      return <p className="fst-italic">{formattedName}</p>
+      const formattedName = name
+        ?.substring(name.indexOf("-") + 1)
+        .replaceAll("-", " ");
+      return <p className="fst-italic">{formattedName}</p>;
     }
-  }
+  };
 
   return (
     <tr className="align-middle">
@@ -25,11 +27,13 @@ export const PokemonRow: React.FC<{
         <>
           <td>
             {props.pokemon?.sprite.image ? (
-              <img
-                src={`data:image/png;base64,${props.pokemon?.sprite.image}`}
-                alt="Pokemon sprite"
-                className="pokemon-row-sprite img-fluid rounded-start"
-              />
+              <Link to={`/pokemon/${props.pokemon?.number}`} className="">
+                <img
+                  src={`data:image/png;base64,${props.pokemon?.sprite.image}`}
+                  alt="Pokemon sprite"
+                  className="pokemon-row-sprite img-fluid rounded-start"
+                />
+              </Link>
             ) : (
               <img
                 src={require("../../../Images/Placeholders/0.png")}
@@ -38,9 +42,16 @@ export const PokemonRow: React.FC<{
               />
             )}
           </td>
-          <td className="text-capitalize">{props.pokemon?.name}</td>
-          <td>{props.pokemon?.number.toString().padStart(3, "0")}</td>
-          <td>{props.pokemon?.types.join(" / ")}</td>
+          <td className="text-capitalize">
+            <Link to={`/pokemon/${props.pokemon?.number}`} className="">
+              {props.pokemon?.name}
+            </Link>
+          </td>
+          <td>
+            {props.pokemon?.types.map((type, index) => (
+              <TypeCard type={type} key={index} />
+            ))}
+          </td>
         </>
       ) : (
         <>
@@ -63,9 +74,9 @@ export const PokemonRow: React.FC<{
             <Link to={`/pokemon/${props.pokemon?.number}`} className="">
               {props.pokemon?.name}
             </Link>
-            {props.formName && props.pokemon.formName !== null && (
-              formatFormName(props.pokemon.formName)
-            )}
+            {props.formName &&
+              props.pokemon.formName !== null &&
+              formatFormName(props.pokemon.formName)}
           </td>
           <td>{props.pokemon?.number.toString().padStart(3, "0")}</td>
           <td>
@@ -91,7 +102,10 @@ export const PokemonRow: React.FC<{
                     </Link>
                   </OverlayTrigger>
                   {ability.hiddenAbility && (
-                    <span className="fst-italic text-body-secondary"> (Hidden ability)</span>
+                    <span className="fst-italic text-body-secondary">
+                      {" "}
+                      (Hidden ability)
+                    </span>
                   )}
                 </li>
               ))}
@@ -101,16 +115,16 @@ export const PokemonRow: React.FC<{
             {props.baseStats && (
               <table className="table my-0 table-borderless table-sm">
                 <tbody>
-                  <tr
-                    style={{ fontSize: ".75rem" }}
-                  >
+                  <tr style={{ fontSize: ".75rem" }}>
                     <td className="text-body-secondary">HP</td>
                     <td className="text-body-secondary">Atk</td>
                     <td className="text-body-secondary">Def</td>
                     <td className="text-body-secondary">SpA</td>
                     <td className="text-body-secondary">SpD</td>
                     <td className="text-body-secondary">Spe</td>
-                    <td className="text-body-secondary" colSpan={2}>BST</td>
+                    <td className="text-body-secondary" colSpan={2}>
+                      BST
+                    </td>
                   </tr>
                   <tr>
                     <td>{props.pokemon?.baseStats?.hp}</td>

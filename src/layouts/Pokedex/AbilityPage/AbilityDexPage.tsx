@@ -95,78 +95,138 @@ export const AbilityDexPage = () => {
   }
 
   return (
-    <div className="d-none d-lg-block">
-      <div className="container">
-        <h1 className="mt-4 text-center">Ability Search</h1>
-        <div className="row mt-5">
-          <div className="col-8 d-flex align-items-center">
-            {totalAmountofAbilities > 0 && (
-              <p className="align-middle mb-0">
-                Viewing {firstIndex + 1} - {lastItem} of{" "}
-                {totalAmountofAbilities} Abilities:
-              </p>
-            )}
+    <div>
+      <div className="d-none d-lg-block">
+        <div className="container">
+          <h1 className="mt-4 text-center">Ability Search</h1>
+          <div className="row mt-5">
+            <div className="col-8 d-flex align-items-center">
+              {totalAmountofAbilities > 0 && (
+                <p className="align-middle mb-0">
+                  Viewing {firstIndex + 1} - {lastItem} of{" "}
+                  {totalAmountofAbilities} Abilities:
+                </p>
+              )}
+            </div>
+            <div className="col-4">
+              <div className="d-flex">
+                <input
+                  type="search"
+                  className="form-control me-2"
+                  placeholder="Search"
+                  aria-label="Search"
+                  onChange={(e) => setSearch(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  value={search}
+                />
+                <button
+                  className="btn btn-primary text-white me-2"
+                  onClick={() => searchHandleChange()}
+                >
+                  Search
+                </button>
+                <button
+                  className="btn btn-danger text-white me-2"
+                  onClick={() => handleReset()}
+                >
+                  Reset
+                </button>
+              </div>
+            </div>
           </div>
-          <div className="col-4">
-            <div className="d-flex">
-              <input
-                type="search"
-                className="form-control me-2"
-                placeholder="Search"
-                aria-label="Search"
-                onChange={(e) => setSearch(e.target.value)}
-                onKeyDown={handleKeyDown}
-                value={search}
-              />
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Effect</th>
+              </tr>
+            </thead>
+            <tbody>
+              {abilities.map((ability) => (
+                <tr key={ability.id}>
+                  <td>
+                    <Link to={`/abilities/${ability.id}`}>{ability.name}</Link>
+                  </td>
+                  <td>{ability.shortEffect}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {abilities.length === 0 && (
+            <>
+              <p className="text-center">
+                Uh oh! It looks like we couldn't find what you were looking for.
+                Try searching again!
+              </p>
+            </>
+          )}
+          {totalPages > 1 && (
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              numberSiblings={3}
+              paginate={paginate}
+            />
+          )}
+        </div>
+      </div>
+      <div className="d-lg-none">
+        <div className="container">
+          <h1 className="mt-4 text-center secondary-color-">Ability Search</h1>
+          <div className="d-flex mt-3">
+            <input
+              type="search"
+              className="form-control me-2"
+              placeholder="Search pokemon, ability, or type"
+              aria-label="Search"
+              onChange={(e) => setSearch(e.target.value)}
+              onKeyDown={handleKeyDown}
+              value={search}
+            />
+            {searchUrl !== "" && (
               <button
-                className="btn btn-primary text-white me-2"
-                onClick={() => searchHandleChange()}
-              >
-                Search
-              </button>
-              <button
-                className="btn btn-danger text-white me-2"
+                className="btn btn-danger text-white ms-2"
                 onClick={() => handleReset()}
               >
                 Reset
               </button>
-            </div>
+            )}
           </div>
-        </div>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Effect</th>
-            </tr>
-          </thead>
-          <tbody>
-            {abilities.map((ability) => (
-              <tr key={ability.id}>
-                <td>
-                  <Link to={`/abilities/${ability.id}`}>{ability.name}</Link>
-                </td>
-                <td>{ability.shortEffect}</td>
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Effect</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-        {abilities.length === 0 && (
-          <>
-            <p className="text-center">
-              Uh oh! It looks like we couldn't find what you were looking for.
-              Try searching again!
-            </p>
-          </>
-        )}
-        {totalPages > 1 && (
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            numberSiblings={3}
-            paginate={paginate}
-          />
-        )}
+            </thead>
+            <tbody>
+              {abilities.map((ability) => (
+                <tr key={ability.id}>
+                  <td>
+                    <Link to={`/abilities/${ability.id}`}>{ability.name}</Link>
+                  </td>
+                  <td>{ability.shortEffect}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {abilities.length === 0 && (
+            <>
+              <p className="text-center">
+                Uh oh! It looks like we couldn't find what you were looking for.
+                Try searching again!
+              </p>
+            </>
+          )}
+          {totalPages > 1 && (
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              numberSiblings={3}
+              paginate={paginate}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

@@ -220,8 +220,64 @@ export const PokedexPage = () => {
       {/* Mobile view */}
       <div className="d-lg-none">
         <div className="container">
-          <h1 className="text-center">Pokedex Search</h1>
+          <h1 className="mt-4 text-center secondary-color-">Pokedex Search</h1>
+          <div className="d-flex mt-3">
+            <input
+              type="search"
+              className="form-control me-2"
+              placeholder="Search pokemon, ability, or type"
+              aria-label="Search"
+              onChange={(e) => setSearch(e.target.value)}
+              onKeyDown={handleKeyDown}
+              value={search}
+            />
+            {searchUrl !== "" && (
+              <button
+                className="btn btn-danger text-white me-2"
+                onClick={() => handleReset()}
+              >
+                Reset
+              </button>
+            )}
+          </div>
+          <table className="table table-responsive table-hover">
+            <thead>
+              <tr>
+                <th></th>
+                <th scope="col">Pokemon</th>
+                <th scope="col" className="w-25">
+                  Type
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {pokemon.map((p) => (
+                <PokemonRow
+                  pokemon={p}
+                  key={p.number}
+                  baseStats={true}
+                  mobile
+                />
+              ))}
+            </tbody>
+          </table>
+          {pokemon.length === 0 && (
+            <>
+              <p className="text-center">
+                Uh oh! It looks like we couldn't find what you were looking for.
+                Try searching again!
+              </p>
+            </>
+          )}
         </div>
+        {totalPages > 1 && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            numberSiblings={1}
+            paginate={paginate}
+          />
+        )}
       </div>
     </div>
   );

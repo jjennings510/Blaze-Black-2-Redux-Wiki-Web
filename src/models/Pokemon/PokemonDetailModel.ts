@@ -4,23 +4,10 @@ import SpriteModel from "../SpriteModel";
 
 class PokemonDetailModel {
   pokemon: PokemonModel;
-  sprites: SpriteModel[];
   types: string[];
-  abilities: string[];
-  baseStats: BaseStatsModel;
 
-  constructor(
-    pokemon: PokemonModel,
-    sprites: SpriteModel[],
-    types: string[],
-    abilities: string[],
-    baseStats: BaseStatsModel
-  ) {
-    (this.pokemon = pokemon),
-      (this.sprites = sprites),
-      (this.types = types),
-      (this.abilities = abilities),
-      (this.baseStats = baseStats);
+  constructor(pokemon: PokemonModel, types: string[]) {
+    (this.pokemon = pokemon), (this.types = types);
   }
 }
 export default PokemonDetailModel;
