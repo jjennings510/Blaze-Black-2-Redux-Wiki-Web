@@ -1,17 +1,108 @@
+/* Theme variables */
+:root,
+[data-bs-theme="dark"] {
+  --bs-body-color: #d1d4d6;
+  --bs-body-color-rgb: 209, 212, 214;
+  --bs-body-bg: #08080a;
+  --bs-body-bg-rgb: 20, 22, 25;
+}
+
+/* Links */
+a,
+.page-link {
+  color: #0085ca;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #18b0ff;
+}
+
+/* text */
+.text-warning {
+  color: #caaa00 !important;
+}
+.text-body-secondary {
+  color: #99a0a4 !important;
+}
+
+/* buttons */
+.btn-primary {
+  background-color: #0085ca;
+  border-color: #0085ca;
+}
+.btn-primary:hover,
+.btn-primary.active {
+  background-color: #006498;
+  border-color: #006498;
+}
+.btn-secondary {
+  background-color: #42454b;
+  border-color: #42454b;
+}
+.btn-secondary:hover {
+  background-color: #2c2e32;
+  border-color: #2c2e32;
+}
+.btn-secondary.active {
+  background-color: #1f2023;
+  border-color: #1f2023;
+}
+.btn-danger {
+  background-color: #ca4500;
+  border-color: #ca4500;
+}
+.btn-danger:hover,
+.btn-danger.active {
+  background-color: #983400;
+  border-color: #983400;
+}
+.page-link:hover {
+  background-color: #1f2023;
+}
+.page-link.disabled {
+  background-color: #161719;
+}
+
+/* cards */
+.card {
+  border-color: #1e1e24;
+}
+
+.card-header {
+  background-color: #101014;
+}
+
+.card-body {
+  background-color: #16161a;
+}
+
+.card-body > .table > :not(caption) > * > * {
+  background-color: inherit;
+}
+
+.navbar {
+  background-image: linear-gradient(
+    to right bottom,
+    #005d8d,
+    #006498,
+    #006ca3,
+    #0073af,
+    #007bba,
+    #0079b7,
+    #0076b3,
+    #0074b0,
+    #00679d,
+    #005b8a,
+    #004f77,
+    #004365
+  );
+}
+
 .image-container img {
   max-width: 100%;
   max-height: 25vh;
   object-fit: contain;
-}
-a {
-  text-decoration: none;
-}
-.main-color {
-  background-color: #0085ca;
-}
-
-.btn.main-color:hover {
-  background-color: #006aa2;
 }
 
 /* Sprites */
@@ -46,7 +137,16 @@ a {
   color: #e6e6e6;
   font-weight: 700;
   text-transform: uppercase;
-  text-shadow: 3px 2px 3px black;
+  text-shadow: 3px 2px 4px black;
+}
+
+.type-card {
+  width: 80px;
+  height: 2em;
+  border-width: 3px;
+  color: rgb(240, 232, 232);
+  text-transform: uppercase;
+  text-shadow: 3px 2px 4px black;
 }
 
 .type-normal {
@@ -496,14 +596,6 @@ a {
     #3c612e
   );
 }
-.type-card {
-  width: 80px;
-  height: 2em;
-  border-width: 3px;
-  color: rgb(240, 232, 232);
-  text-transform: uppercase;
-  text-shadow: 3px 1px 2px black;
-}
 
 /* Tooltips */
 .tooltip > .tooltip-inner {
@@ -537,25 +629,4 @@ a {
 }
 .amazing-stat > .progress-bar {
   background-color: #3eb5d6;
-}
-
-a {
-  color: #0085ca;
-}
-
-.secondary-color {
-  color: #eac321
-}
-
-.my-masonry-grid {
-  display: -webkit-box; /* Not needed if autoprefixing */
-  display: -ms-flexbox; /* Not needed if autoprefixing */
-  display: flex;
-  margin-left: -30px; /* gutter size offset */
-  width: auto;
-}
-
-.my-masonry-grid_column {
-  padding-left: 30px; /* gutter size */
-  background-clip: padding-box;
 }

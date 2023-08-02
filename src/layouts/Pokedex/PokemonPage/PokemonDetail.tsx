@@ -215,7 +215,7 @@ export const PokemonDetail = () => {
           <div className="col-4">
             <div className="card">
               <div className="card-header">
-                <h2 className="text-center mb-3">Pokedex Data</h2>
+                <h2 className="text-center mb-0">Pokedex Data</h2>
               </div>
               <div className="card-body">
                 <table className="table fw-semibold align-middle">
@@ -258,7 +258,7 @@ export const PokemonDetail = () => {
                                 </Link>
                               </OverlayTrigger>
                               {ability.hiddenAbility && (
-                                <span className="fst-italic fw-normal">
+                                <span className="fst-italic fw-normal text-body-secondary">
                                   {" "}
                                   (Hidden ability)
                                 </span>

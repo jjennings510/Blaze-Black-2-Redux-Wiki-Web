@@ -64,7 +64,7 @@ export const AbilityDetail = () => {
           <div className="card">
             <div className="card-header">
               <p className="fst-italic mb-0">
-                {ability?.name} is an ability added to Pokemon in Generation{" "}
+                <span className="text-warning">{ability?.name}</span> is an ability added to Pokemon in Generation{" "}
                 {ability?.generationAdded}.
               </p>
             </div>

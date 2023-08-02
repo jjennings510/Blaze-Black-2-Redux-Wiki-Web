@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import MoveDetailModel from "../../../models/Move/MoveDetailModel";
 import { RenderCategory } from "../../Utils/RenderCategory";
 import { TypeCard } from "../PokemonPage/components/TypeCard";
@@ -8,6 +8,8 @@ import { Link } from "react-router-dom";
 import MoveDetailPokemonModel from "../../../models/Move/MoveDetailPokemonModel";
 import { PokemonForMoveTable } from "./components/PokemonForMoveTable";
 import Masonry from "react-masonry-css";
+import { renderToStaticMarkup, renderToString } from "react-dom/server";
+import React from "react";
 
 export const MoveDetail = () => {
   // Move Detail
@@ -38,6 +40,15 @@ export const MoveDetail = () => {
       .map((x, index) => <p key={index}>{x}</p>);
   };
 
+  const renderPokemonTables = () => {
+    const methods = ["level-up", "machine", "tutor", "egg", "form-change"];
+    const tables = methods.map((x, index) =>
+      PokemonForMoveTable({ moveId: moveId, method: x }, index)
+    );
+
+    return tables.filter((t) => t);
+  };
+
   return (
     <div className="container">
       <div className="row mt-4">
@@ -59,8 +70,9 @@ export const MoveDetail = () => {
           <div className="card">
             <div className="card-header">
               <p className="fst-italic mb-0">
-                {move?.name} is a {move?.category} move added to Pokemon in
-                Generation {move?.generationAdded}.
+                <span className="text-warning">{move?.name}</span> is a{" "}
+                {move?.category} move added to Pokemon in Generation{" "}
+                {move?.generationAdded}.
               </p>
             </div>
             <div className="card-body">
@@ -132,12 +144,8 @@ export const MoveDetail = () => {
           </div>
         </div>
       </div>
-
-      <Masonry breakpointCols={2} className="row" columnClassName="col-6">
-        <PokemonForMoveTable moveId={moveId} method="level-up" />
-        <PokemonForMoveTable moveId={moveId} method="machine" />
-        <PokemonForMoveTable moveId={moveId} method="tutor" />
-        <PokemonForMoveTable moveId={moveId} method="egg" />
+      <Masonry className="row justify-content-center" columnClassName="col-6">
+        {renderPokemonTables()}
       </Masonry>
     </div>
   );

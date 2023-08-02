@@ -119,7 +119,7 @@ export const AbilityDexPage = () => {
                 value={search}
               />
               <button
-                className="btn main-color text-white me-2"
+                className="btn btn-primary text-white me-2"
                 onClick={() => searchHandleChange()}
               >
                 Search

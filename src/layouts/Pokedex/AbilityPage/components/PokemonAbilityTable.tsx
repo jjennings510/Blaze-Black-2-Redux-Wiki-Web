@@ -115,7 +115,7 @@ export const PokemonAbilityTable: React.FC<{ abilityId: number }> = (props) => {
                         </Link>
                       </OverlayTrigger>
                       {ability.hiddenAbility && (
-                        <span className="fst-italic"> (Hidden ability)</span>
+                        <span className="fst-italic text-body-secondary"> (Hidden ability)</span>
                       )}
                     </li>
                   ))}

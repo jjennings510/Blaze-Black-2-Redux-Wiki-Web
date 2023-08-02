@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import PokemonMoveModel from "../../../../models/PokemonMoveModel";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import { TypeCard } from "./TypeCard";
 import { SpinnerLoading } from "../../../Utils/SpinnerLoading";
 import { RenderCategory } from "../../../Utils/RenderCategory";
 import { Link } from "react-router-dom";
+import PokemonMoveModel from "../../../../models/Pokemon/PokemonMoveModel";
 
 export const MoveTable: React.FC<{ pokemonId: number; method: string }> = (
   props

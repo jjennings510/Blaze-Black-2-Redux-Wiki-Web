@@ -6,6 +6,7 @@ export const RenderCategory: React.FC<{category: string}> = (props) => {
           src={require(`../Images/Moves/physical.png`)}
           alt="Physical"
           style={{ width: "69px", height: "35px" }}
+          className="mx-1"
         />
       </>
     );
@@ -16,6 +17,7 @@ export const RenderCategory: React.FC<{category: string}> = (props) => {
           src={require(`../Images/Moves/special.png`)}
           alt="Special"
           style={{ width: "69px", height: "35px" }}
+          className="mx-1"
         />
       </>
     );
@@ -26,6 +28,7 @@ export const RenderCategory: React.FC<{category: string}> = (props) => {
           src={require(`../Images/Moves/status.png`)}
           alt="Status"
           style={{ width: "69px", height: "35px" }}
+          className="mx-1"
         />
       </>
     );
@@ -35,7 +38,8 @@ export const RenderCategory: React.FC<{category: string}> = (props) => {
         <img
           src={require(`../Images/Placeholders/0.png`)}
           alt="Physical Move"
-          className="pokemon-sprite"
+          className="pokemon-sprite mx-1"
+          
         />
       </>
     );

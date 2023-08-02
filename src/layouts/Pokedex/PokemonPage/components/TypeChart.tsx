@@ -54,12 +54,12 @@ export const TypeChart: React.FC<{
         <div className="row g-0 text-center mb-3">
           {orderedTypes.slice(0, 9).map((e, index) => (
             <div className="col" key={index}>
-              <div className={"type-chart-cell type-" + e.name}>
+              <div className={"mx-auto type-chart-cell type-" + e.name}>
                 {e.accronym}
               </div>
               <div
                 className={
-                  "type-chart-cell type-" +
+                  "mx-auto type-chart-cell type-" +
                   calculateEffectiveness(e.name).className
                 }
               >
@@ -71,12 +71,12 @@ export const TypeChart: React.FC<{
         <div className="row g-0 text-center mb-3">
           {orderedTypes.slice(9).map((e, index) => (
             <div className="col" key={index}>
-              <div className={"type-chart-cell type-" + e.name}>
+              <div className={"mx-auto type-chart-cell type-" + e.name}>
                 {e.accronym}
               </div>
               <div
                 className={
-                  "type-chart-cell type-" +
+                  "mx-auto type-chart-cell type-" +
                   calculateEffectiveness(e.name).className
                 }
               >
@@ -90,12 +90,12 @@ export const TypeChart: React.FC<{
         <div className="row g-0 text-center mb-1">
           {orderedTypes.slice(0, 6).map((e, index) => (
             <div className="col" key={index}>
-              <div className={"type-chart-cell type-" + e.name}>
+              <div className={"mx-auto type-chart-cell type-" + e.name}>
                 {e.accronym}
               </div>
               <div
                 className={
-                  "type-chart-cell type-" +
+                  "mx-auto type-chart-cell type-" +
                   calculateEffectiveness(e.name).className
                 }
               >
@@ -104,15 +104,16 @@ export const TypeChart: React.FC<{
             </div>
           ))}
         </div>
+        <hr className="my-1" />
         <div className="row g-0 text-center mb-1">
           {orderedTypes.slice(6, 12).map((e, index) => (
             <div className="col" key={index}>
-              <div className={"type-chart-cell type-" + e.name}>
+              <div className={"mx-auto type-chart-cell type-" + e.name}>
                 {e.accronym}
               </div>
               <div
                 className={
-                  "type-chart-cell type-" +
+                  "mx-auto type-chart-cell type-" +
                   calculateEffectiveness(e.name).className
                 }
               >
@@ -121,15 +122,16 @@ export const TypeChart: React.FC<{
             </div>
           ))}
         </div>
+        <hr className="my-1" />
         <div className="row g-0 text-center mb-1">
           {orderedTypes.slice(12).map((e, index) => (
             <div className="col" key={index}>
-              <div className={"type-chart-cell type-" + e.name}>
+              <div className={"mx-auto type-chart-cell type-" + e.name}>
                 {e.accronym}
               </div>
               <div
                 className={
-                  "type-chart-cell type-" +
+                  "mx-auto type-chart-cell type-" +
                   calculateEffectiveness(e.name).className
                 }
               >

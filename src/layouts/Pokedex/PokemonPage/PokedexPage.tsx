@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import { DropdownButton } from "react-bootstrap";
 import DropdownItem from "react-bootstrap/esm/DropdownItem";
 import { orderedTypes } from "../../../Utils/TypeChart";
-import PokemonRowModel from "../../../models/PokemonRowModel";
 import { SpinnerLoading } from "../../Utils/SpinnerLoading";
 import { PokemonRow } from "./components/PokemonRow";
 import { Pagination } from "../../Utils/Pagination";
+import PokemonRowModel from "../../../models/Pokemon/PokemonRowModel";
 
 export const PokedexPage = () => {
   // Pokemon state
@@ -142,7 +142,7 @@ export const PokedexPage = () => {
                       value={search}
                     />
                     <button
-                      className="btn main-color text-white me-2"
+                      className="btn btn-primary text-white me-2"
                       onClick={() => searchHandleChange()}
                     >
                       Search

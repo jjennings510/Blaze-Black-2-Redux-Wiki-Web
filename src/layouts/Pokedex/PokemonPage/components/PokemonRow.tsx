@@ -91,7 +91,7 @@ export const PokemonRow: React.FC<{
                     </Link>
                   </OverlayTrigger>
                   {ability.hiddenAbility && (
-                    <span className="fst-italic"> (Hidden ability)</span>
+                    <span className="fst-italic text-body-secondary"> (Hidden ability)</span>
                   )}
                 </li>
               ))}
@@ -102,16 +102,15 @@ export const PokemonRow: React.FC<{
               <table className="table my-0 table-borderless table-sm">
                 <tbody>
                   <tr
-                    className="text-body-secondary"
                     style={{ fontSize: ".75rem" }}
                   >
-                    <td>HP</td>
-                    <td>Atk</td>
-                    <td>Def</td>
-                    <td>SpA</td>
-                    <td>SpD</td>
-                    <td>Spe</td>
-                    <td colSpan={2}>BST</td>
+                    <td className="text-body-secondary">HP</td>
+                    <td className="text-body-secondary">Atk</td>
+                    <td className="text-body-secondary">Def</td>
+                    <td className="text-body-secondary">SpA</td>
+                    <td className="text-body-secondary">SpD</td>
+                    <td className="text-body-secondary">Spe</td>
+                    <td className="text-body-secondary" colSpan={2}>BST</td>
                   </tr>
                   <tr>
                     <td>{props.pokemon?.baseStats?.hp}</td>
