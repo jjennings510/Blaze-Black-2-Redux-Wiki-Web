@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useLocation } from "react-router-dom";
 import { PokemonForMoveTable } from "./components/PokemonForMoveTable";
 import Masonry from "react-masonry-css";
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import remarkGfm from "remark-gfm";
 
 export const MoveDetail = () => {
   // Move Detail
@@ -42,6 +44,10 @@ export const MoveDetail = () => {
       .replaceAll("\n", "  ")
       .split("  ")
       .map((x, index) => <p key={index}>{x}</p>);
+  };
+
+  const formattedEffectText = (effect: string) => {
+    return effect.replaceAll("$effect_chance", `${move?.effectChance}`);
   };
 
   const renderPokemonTables = (mobile?: boolean) => {
@@ -83,7 +89,13 @@ export const MoveDetail = () => {
                 </div>
                 <div className="card-body">
                   <h2 className="mb-3">Effect</h2>
-                  {move?.effect && formatEffectText(move?.effect)}
+                  {move?.effect && (
+                    <ReactMarkdown
+                      children={formattedEffectText(move?.effect)}
+                      remarkPlugins={[remarkGfm]}
+                    />
+                  )}
+
                   <h2 className="my-3">Flavor Text</h2>
                   <p>{move?.flavorText}</p>
                 </div>
@@ -180,7 +192,12 @@ export const MoveDetail = () => {
             </div>
             <div className="card-body">
               <h2 className="mb-3">Effect</h2>
-              {move?.effect && formatEffectText(move?.effect)}
+              {move?.effect && (
+                <ReactMarkdown
+                  children={formattedEffectText(move?.effect)}
+                  remarkPlugins={[remarkGfm]}
+                />
+              )}
               <h2 className="my-3">Flavor Text</h2>
               <p>{move?.flavorText}</p>
             </div>

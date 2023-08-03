@@ -5,6 +5,8 @@ import { SpinnerLoading } from "../../Utils/SpinnerLoading";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 export const AbilityDetail = () => {
   // Ability State
@@ -83,12 +85,12 @@ export const AbilityDetail = () => {
                 </div>
                 <div className="card-body">
                   <h2 className="card-title">Effect</h2>
-                  {ability?.effect
-                    .replaceAll("\n", "  ")
-                    .split("  ")
-                    .map((x, index) => (
-                      <p key={index}>{x}</p>
-                    ))}
+                  {ability?.effect && (
+                    <ReactMarkdown
+                      children={ability?.effect}
+                      remarkPlugins={[remarkGfm]}
+                    />
+                  )}
                   <h2>Flavor Text</h2>
                   <p>{ability?.flavorText}</p>
                 </div>
@@ -124,12 +126,12 @@ export const AbilityDetail = () => {
             </div>
             <div className="card-body">
               <h2 className="card-title">Effect</h2>
-              {ability?.effect
-                .replaceAll("\n", "  ")
-                .split("  ")
-                .map((x, index) => (
-                  <p key={index}>{x}</p>
-                ))}
+              {ability?.effect && (
+                    <ReactMarkdown
+                      children={ability?.effect}
+                      remarkPlugins={[remarkGfm]}
+                    />
+                  )}
               <h2>Flavor Text</h2>
               <p>{ability?.flavorText}</p>
             </div>
