@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import MoveDetailPokemonModel from "../../../../models/Move/MoveDetailPokemonModel";
 import { TypeCard } from "../../PokemonPage/components/TypeCard";
 import { Pagination } from "../../../Utils/Pagination";
+import React from "react";
 
 export const PokemonForMoveTable: React.FC<{
-  moveId: string;
+  moveId: number;
   method: string;
   mobile?: boolean;
 }> = (props, key) => {
-  // export const PokemonForMoveTable = (props: any) => {
   // Pokemon State
   const [pokemon, setPokemon] = useState<MoveDetailPokemonModel[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -55,7 +55,7 @@ export const PokemonForMoveTable: React.FC<{
         setHttpError(error.message);
         setIsLoading(false);
       });
-  }, [currentPage, searchUrl]);
+  }, [currentPage, searchUrl, props.moveId]);
 
   const formatFormName = (pokemon: MoveDetailPokemonModel) => {
     if (pokemon.formName === pokemon.name) {
@@ -93,10 +93,10 @@ export const PokemonForMoveTable: React.FC<{
   if (pokemon.length === 0 && searchUrl === "") return null;
 
   return (
-    <>
+    <React.Fragment key={key}>
       {props.mobile ? (
         <>
-          <div key={key}>
+          <div>
             <h2 className="text-center my-3">
               Learnable Through{" "}
               {props.method === "level-up"
@@ -297,6 +297,14 @@ export const PokemonForMoveTable: React.FC<{
                   ))}
                 </tbody>
               </table>
+              {pokemon.length === 0 && (
+                <>
+                  <p className="text-center">
+                    Uh oh! It looks like we couldn't find what you were looking
+                    for. Try searching again!
+                  </p>
+                </>
+              )}
               {totalPages > 1 && (
                 <Pagination
                   currentPage={currentPage}
@@ -309,6 +317,6 @@ export const PokemonForMoveTable: React.FC<{
           </div>
         </>
       )}
-    </>
+    </React.Fragment>
   );
 };

@@ -5,7 +5,7 @@ import { TypeChart } from "./components/TypeChart";
 import BaseStatsModel from "../../../models/Pokemon/BaseStatsModel";
 import PokemonDetailModel from "../../../models/Pokemon/PokemonDetailModel";
 import { MoveTable } from "./components/MoveTable";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { TypeCard } from "./components/TypeCard";
@@ -14,6 +14,7 @@ import AbilityModel from "../../../models/Ability/AbilityModel";
 import { SpinnerLoading } from "../../Utils/SpinnerLoading";
 import PokemonModel from "../../../models/Pokemon/PokemonModel";
 import PokemonSpeciesModel from "../../../models/Pokemon/PokemonSpeciesModel";
+import { Search } from "../../NavbarAndFooter/components/Search";
 
 export const PokemonDetail = () => {
   // Pokemon State
@@ -44,12 +45,20 @@ export const PokemonDetail = () => {
     +window.location.pathname.split("/")[2]
   );
 
+  const { pathname } = useLocation();
+
+  // Get species id on pathname change
+  useEffect(() => {
+    setspeciesId(+pathname.split("/")[2]);
+  }, [pathname]);
+
   // Get pokemon sepcies
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API}/pokemonSpecies/${speciesId}`)
       .then((response) => response.json())
       .then((data) => {
         const loadedPokemonSpecies: PokemonSpeciesModel = {
+          id: data.id,
           name: data.name,
           number: data.number,
           hasGenderDifferences: data.hasGenderDifferences,
@@ -143,7 +152,6 @@ export const PokemonDetail = () => {
         .then((data) => {
           const loadedDetails: AbilityModel[] = data;
           setAbilities(loadedDetails);
-          console.log(abilities);
         })
         .catch((error: any) => {
           setAreSpritesLoading(false);
@@ -162,7 +170,6 @@ export const PokemonDetail = () => {
         .then((data) => {
           const loadedSprite: SpriteModel = data;
           setSprite(loadedSprite);
-          console.log(sprite);
         })
         .catch((error: any) => {
           setAreSpritesLoading(false);
@@ -189,6 +196,9 @@ export const PokemonDetail = () => {
       <div className="container d-none d-lg-block">
         {/* Top row - Names + navigation */}
         <div className="row mt-4">
+          <Link to={`/pokemon`} className="text-capitalize">
+            <FontAwesomeIcon icon={faArrowLeft} /> Back to Pokedex
+          </Link>
           <div className="col-2 d-flex align-items-center">
             {speciesId && speciesId > 1 && (
               <Link
@@ -372,7 +382,7 @@ export const PokemonDetail = () => {
             <div className="col-6 d-flex justify-content-start">
               {speciesId && speciesId > 1 && (
                 <Link
-                  to={`/pokemon/${speciesId - 1}`}
+                  to={`/pokemon/${+speciesId - 1}`}
                   onClick={() => setspeciesId(speciesId - 1)}
                   className="text-capitalize"
                 >

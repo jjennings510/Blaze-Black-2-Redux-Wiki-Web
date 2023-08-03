@@ -1,4 +1,5 @@
 class PokemonSpeciesModel {
+  id: number;
   name: string;
   number: number;
   hasGenderDifferences: boolean;
@@ -7,6 +8,7 @@ class PokemonSpeciesModel {
   isLegendary: boolean;
 
   constructor(
+    id: number,
     name: string,
     number: number,
     hasGenderDifferences: boolean,
@@ -14,6 +16,7 @@ class PokemonSpeciesModel {
     isMythical: boolean,
     isLegendary: boolean
   ) {
+    this.id = id;
     this.name = name;
     this.number = number;
     this.hasGenderDifferences = hasGenderDifferences;

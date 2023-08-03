@@ -1,15 +1,12 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import MoveDetailModel from "../../../models/Move/MoveDetailModel";
 import { RenderCategory } from "../../Utils/RenderCategory";
 import { TypeCard } from "../PokemonPage/components/TypeCard";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
-import MoveDetailPokemonModel from "../../../models/Move/MoveDetailPokemonModel";
+import { Link, useLocation } from "react-router-dom";
 import { PokemonForMoveTable } from "./components/PokemonForMoveTable";
 import Masonry from "react-masonry-css";
-import { renderToStaticMarkup, renderToString } from "react-dom/server";
-import React from "react";
 
 export const MoveDetail = () => {
   // Move Detail
@@ -17,7 +14,14 @@ export const MoveDetail = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState(null);
 
-  const moveId = window.location.pathname.split("/")[2];
+  const [moveId, setMoveId] = useState(+window.location.pathname.split("/")[2]);
+
+  const { pathname } = useLocation();
+
+  // Get species id on pathname change
+  useEffect(() => {
+    setMoveId(+pathname.split("/")[2]);
+  }, [pathname]);
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API}/moves/get/details?moveId=${moveId}`)
@@ -30,7 +34,7 @@ export const MoveDetail = () => {
         setHttpError(error.message);
         setIsLoading(false);
       });
-  }, []);
+  }, [moveId]);
 
   const formatEffectText = (effect: string) => {
     return move?.effect

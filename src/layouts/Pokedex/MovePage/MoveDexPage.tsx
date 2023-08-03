@@ -240,19 +240,21 @@ export const MoveDexPage = () => {
                   <td>
                     <TypeCard type={move.type} size="small" />
                   </td>
-                  <td>{<RenderCategory category={move.category} size="small" />}</td>
+                  <td>
+                    {<RenderCategory category={move.category} size="small" />}
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
           {moves.length === 0 && (
-              <>
-                <p className="text-center">
-                  Uh oh! It looks like we couldn't find what you were looking
-                  for. Try searching again!
-                </p>
-              </>
-            )}
+            <>
+              <p className="text-center">
+                Uh oh! It looks like we couldn't find what you were looking for.
+                Try searching again!
+              </p>
+            </>
+          )}
           {totalPages > 1 && (
             <Pagination
               currentPage={currentPage}

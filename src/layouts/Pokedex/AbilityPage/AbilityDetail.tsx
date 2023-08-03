@@ -3,7 +3,7 @@ import AbilityDetailModel from "../../../models/Ability/AbilityDetailModel";
 import { PokemonAbilityTable } from "./components/PokemonAbilityTable";
 import { SpinnerLoading } from "../../Utils/SpinnerLoading";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const AbilityDetail = () => {
@@ -12,7 +12,16 @@ export const AbilityDetail = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState(null);
 
-  const abilityId = +window.location.pathname.split("/")[2];
+  const [abilityId, setAbilityId] = useState(
+    +window.location.pathname.split("/")[2]
+  );
+
+  const { pathname } = useLocation();
+
+  // Get species id on pathname change
+  useEffect(() => {
+    setAbilityId(+pathname.split("/")[2]);
+  }, [pathname]);
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API}/abilities/${abilityId}`)
@@ -27,7 +36,6 @@ export const AbilityDetail = () => {
           shortEffect: data.shortEffect,
           generationAdded: data.generationAdded,
         };
-        console.log(loadedAbility);
         setAbility(loadedAbility);
         setIsLoading(false);
       })
@@ -127,7 +135,7 @@ export const AbilityDetail = () => {
             </div>
           </div>
           <h2 className="text-center mt-4">Obtainable by</h2>
-          <PokemonAbilityTable abilityId={abilityId} mobile/>
+          <PokemonAbilityTable abilityId={abilityId} mobile />
         </div>
       </div>
     </div>

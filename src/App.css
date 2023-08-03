@@ -20,7 +20,7 @@ a:hover {
 
 /* text */
 .text-warning {
-  color: #caaa00 !important;
+  color: rgb(202, 170, 0) !important;
 }
 .text-body-secondary {
   color: #99a0a4 !important;
@@ -28,7 +28,7 @@ a:hover {
 
 /* buttons */
 .btn-primary {
-  background-color: #0085ca;
+  background-color: rgb(0, 133, 202);
   border-color: #0085ca;
 }
 .btn-primary:hover,
@@ -49,7 +49,7 @@ a:hover {
   border-color: #1f2023;
 }
 .btn-danger {
-  background-color: #ca4500;
+  background-color: rgb(202, 69, 0);
   border-color: #ca4500;
 }
 .btn-danger:hover,
@@ -139,7 +139,6 @@ a:hover {
   text-transform: uppercase;
   text-shadow: 3px 2px 4px black;
 }
-
 .type-card {
   width: 80px;
   height: 32px;
@@ -157,7 +156,6 @@ a:hover {
   text-transform: uppercase;
   text-shadow: 3px 2px 4px black;
 }
-
 .type-normal {
   background-color: #a8a77a;
   border-color: #323225;
@@ -638,4 +636,34 @@ a:hover {
 }
 .amazing-stat > .progress-bar {
   background-color: #3eb5d6;
+}
+
+/* Search */
+/* to target the search icon */
+.search .wrapper:first-child svg {
+}
+
+/* to target the input element */
+.search .wrapper:first-child input {
+  color: var(--bs-body-color);
+}
+
+.search .wrapper:first-child input:hover {
+
+}
+
+/* to target the wrapper element */
+.search .wrapper:first-child {
+  background-color: rgba(0, 0, 0, 0.4);;
+  color: var(---bs-body-color-rgb);
+  border-color: transparent
+}
+
+.search .wrapper:first-child:focus-within {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: var(---bs-body-color-rgb);
+  border-width: 2px;
+  border-color: #00141e;
+}
+.search .wrapper {
 }

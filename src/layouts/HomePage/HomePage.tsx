@@ -1,4 +1,5 @@
 import { GAME_VERSION } from "../../constants";
+import { Search } from "../NavbarAndFooter/components/Search";
 import { CreditsCard } from "./components/CreditsCard";
 
 export const HomePage = () => {
